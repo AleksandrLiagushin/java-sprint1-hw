@@ -1,51 +1,60 @@
 import java.util.Scanner;
+/*
+* Program StepTracker. Storing, editing, targeting and steps statistics for each month
+* @version 1.0 13/04/2023
+* @author Aleksandr Liagushin
+*/
 public class Main {
 
     public static void main(String[] args) {
-        // вывод меню и обработка запросов пользователя
         Scanner userInput = new Scanner(System.in);
-        Navigator navigator = new Navigator(userInput);
         StepTracker stepTracker = new StepTracker(userInput);
-        Converter converter = new Converter();
-        //MonthData monthData = new MonthData();
-        int month;
-        int sumSteps;
+        int menuPoint;
+        MonthData monthData;
+
         while (true) {
-            navigator.printMenu();
-            int menuPoint = userInput.nextInt();
+            Navigator.printMenu();
+            menuPoint = userInput.nextInt();
             if (menuPoint == 1) {
                 stepTracker.addNewNumberStepsPerDay();
+                System.out.println();
             } else if (menuPoint == 2) {
-                System.out.println("Введите цель по количеству шагов за день:");
                 stepTracker.changeStepGoal();
+                System.out.println();
             } else if (menuPoint == 3) {
-                while (true) {
-                    Navigator.printConverterMenu();
-                    menuPoint = userInput.nextInt();
-                    if (menuPoint == 1) {
-                        System.out.println("Введите номер месяца от 1 до 12:");
-                        month = userInput.nextInt();
-                        MonthData monthData = stepTracker.monthToData[month - 1];
-                        sumSteps = monthData.sumStepsFromMonth(month);
-                        System.out.println("В этом месяце вы прошли: " + converter.convertToKm(sumSteps)); //+ converter.convertToKm(sumSteps)
-                    } else if (menuPoint == 2) {
-                        System.out.println("Введите номер месяца от 1 до 12:");
-                        month = userInput.nextInt();
-                        MonthData monthData = stepTracker.monthToData[month - 1];
-                        sumSteps = monthData.sumStepsFromMonth(month);
-                        System.out.println("В этом месяце вы сожгли: " + converter.convertStepsToKilocalories(sumSteps) + " кКал.");
-                    } else if (menuPoint == 0) {
-                        break;
-                    } else {
-                        System.out.println("Такого пункта меню нет, повторите ввод");
-                    }
+                Navigator.printConverterMenu();
+                menuPoint = userInput.nextInt();
+                System.out.println();
+                if (menuPoint == 1) {
+                    monthData = Navigator.getMonthData(userInput, stepTracker);
+                    System.out.printf("В этом месяце вы покрыли дистанцию в %.2f км.\n",
+                            (Converter.convertToKm(MonthData.sumStepsFromMonth(monthData))));
+                    System.out.println();
+                } else if (menuPoint == 2) {
+                    monthData = Navigator.getMonthData(userInput, stepTracker);
+                    System.out.println("В этом месяце вы сожгли: "
+                            + Converter.convertStepsToKilocalories(MonthData.sumStepsFromMonth(monthData)) + " кКал.");
+                    System.out.println();
+                } else if (menuPoint == 0) {
+                    System.out.println("Вы напралены в основное меню.");
+                    System.out.println();
+                } else {
+                    System.out.println("Такого пункта меню не существует.");
+                    System.out.println("Вы напралены в основное меню.");
+                    System.out.println();
                 }
             } else if (menuPoint == 4) {
-                converter.printStatistic(stepTracker);
-            }else if (menuPoint != 0) {
-                System.out.println("Такого пункта меню нет. Повторите ввод:");
+                monthData = Navigator.getMonthData(userInput, stepTracker);
+                Converter.printStatistic(stepTracker, monthData);
+                System.out.println();
+            } else if (menuPoint == 0) {
+                System.out.println("Хорошего дня и достижения поставленных целей!");
+                System.out.println();
+                return;
+            } else {
+                System.out.println("Такого пункта меню нет.");
+                System.out.println();
             }
-            //return 0; //todo проверь значение перед компиляцией
         }
     }
 }
