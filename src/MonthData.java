@@ -1,6 +1,6 @@
 /*
  * Class MonthData. Storing month data, calculating maxSteps, total steps, the best series and print all data for selected month
- * @version 1.0 13/04/2023
+ * @version 1.1 13/04/2023
  * @author Aleksandr Liagushin
  */
 class MonthData {
@@ -8,7 +8,7 @@ class MonthData {
 
     static void printDaysAndStepsFromMonth(MonthData monthData) {
         for (int i = 1; i <= monthData.days.length; i++) {
-            System.out.println("День " + i + ": " + monthData.days[i - 1]);
+            System.out.printf("День %d: %d\n",i , monthData.days[i - 1]);
         }
     }
 
@@ -36,9 +36,9 @@ class MonthData {
         for (int steps : monthData.days) {
             if (steps >= goalByStepsPerDay) {
                 currentSeries++;
-            } else if (currentSeries > bestSeries){
-                bestSeries = currentSeries;
-                currentSeries = 0;
+                if (currentSeries > bestSeries) {
+                    bestSeries = currentSeries;
+                }
             } else {
                 currentSeries = 0;
             }
