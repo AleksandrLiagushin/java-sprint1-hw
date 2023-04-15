@@ -1,7 +1,7 @@
 import java.util.Scanner;
 /*
  * Class StepTracker. Changing data and target for selected month
- * @version 1.1 13/04/2023
+ * @version 1.2 13/04/2023
  * @author Aleksandr Liagushin
  */
 class StepTracker {
@@ -37,8 +37,8 @@ class StepTracker {
         int stepsQuantity;
         stepsQuantity = userInput.nextInt();
         // Количество шагов может равняться нулю. Не исключаем случай попадения человека в больницу...
-        if (stepsQuantity < 0) {
-            System.out.println("Количество шагов не может быть меньше нуля. Вы направлены в основное меню.");
+        if (stepsQuantity <= 0) {
+            System.out.println("Количество шагов не может быть ноль или меньше нуля. Вы направлены в основное меню.");
             return;
         }
         MonthData monthData = monthToData[month - 1];

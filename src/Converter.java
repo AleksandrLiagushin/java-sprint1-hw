@@ -1,6 +1,6 @@
 /*
  * Class Converter. Conversion selected month data to km kKal and print statistic
- * @version 1.1 13/04/2023
+ * @version 1.2 13/04/2023
  * @author Aleksandr Liagushin
  */
 class Converter {
@@ -12,7 +12,7 @@ class Converter {
         * Правильно в этом случае использовать запрос биологических данных пользователя
         * Во-вторых формулировка "можно использовать" никак не обязывает меня использовать конкретно это значение 75 см
         */
-        double stepLength = 0.65;
+        double stepLength = 0.75;
         return (steps * stepLength / 1000.0);
     }
 
