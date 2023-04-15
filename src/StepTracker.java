@@ -6,7 +6,7 @@ import java.util.Scanner;
  */
 class StepTracker {
     Scanner userInput;
-    int goalByStepsPerDay = 10;
+    int goalByStepsPerDay = 10000;
     MonthData[] monthToData = new MonthData[12];
     StepTracker(Scanner scan) {
         userInput = scan;
